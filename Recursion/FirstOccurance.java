@@ -3,6 +3,10 @@ public class FirstOccurance {
     // First Occurance of a number in a Array
 
     public static int indexOf(int arr[], int val,int i ){
+
+        if(arr[i] == arr.length){
+            return -1;
+        }
         if(arr[i] == val){
             return i;
         }
