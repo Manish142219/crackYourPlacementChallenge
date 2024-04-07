@@ -11,6 +11,7 @@ class Solution {
                 leftMax--;
             }else{
                 leftMin--; //  we have one less '(' available
+                
                 leftMax++; // we potentially have one more ')' available
             }
             if(leftMax < 0) return false;
