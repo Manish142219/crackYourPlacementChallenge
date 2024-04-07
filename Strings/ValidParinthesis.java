@@ -10,8 +10,8 @@ class Solution {
                 leftMin--;
                 leftMax--;
             }else{
-                leftMin--;
-                leftMax++;
+                leftMin--; //  we have one less '(' available
+                leftMax++; // we potentially have one more ')' available
             }
             if(leftMax < 0) return false;
             if(leftMin < 0) leftMin = 0;
