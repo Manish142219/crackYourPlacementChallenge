@@ -14,7 +14,6 @@ public class TopViewOfTree {
             this.left = null;
             this.right = null;
         }
-
     }
 
     static class Info {
@@ -25,52 +24,41 @@ public class TopViewOfTree {
             this.node = node;
             this.hd = hd;
         }
-
     }
 
     public static void topView(Node root) {
-        // level order
+        if (root == null)
+            return;
+
         Queue<Info> q = new LinkedList<>();
         HashMap<Integer, Node> map = new HashMap<>();
-        int max = 0, min = 0;
+        int min = 0, max = 0;
 
-        // adding first root in the queue
         q.add(new Info(root, 0));
-        q.add(null);
 
         while (!q.isEmpty()) {
             Info curr = q.remove();
 
-            if (curr == null) {
-                if (q.isEmpty()) {
-                    break;
-                } else {
-                    q.add(null);
-                }
-            } else {
-                if (!map.containsKey(curr.hd)) { // we are adding the horizontal first time, it is not repeated
-                    map.put(curr.hd, curr.node);
-                }
-
-                if (curr.node.left != null) {
-                    q.add(new Info(curr.node.left, curr.hd - 1));
-                    min = Math.min(min, curr.hd - 1);
-                }
-                if (curr.node.right != null) {
-                    q.add(new Info(curr.node.right, curr.hd + 1));
-                    max = Math.max(max, curr.hd + 1);
-
-                }
-
+            if (!map.containsKey(curr.hd)) {
+                map.put(curr.hd, curr.node);
             }
 
-            for (int i = min; i <= max; i++) {
-                System.out.print(map.get(i).data + " ");
+            if (curr.node.left != null) {
+                q.add(new Info(curr.node.left, curr.hd - 1));
+                min = Math.min(min, curr.hd - 1);
             }
-            System.out.println();
 
+            if (curr.node.right != null) {
+                q.add(new Info(curr.node.right, curr.hd + 1));
+                max = Math.max(max, curr.hd + 1);
+            }
         }
 
+        // Print top view from leftmost (min) to rightmost (max)
+        for (int i = min; i <= max; i++) {
+            System.out.print(map.get(i).data + " ");
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -82,5 +70,6 @@ public class TopViewOfTree {
         root.right.left = new Node(4);
         root.right.right = new Node(6);
 
+        topView(root);
     }
 }
